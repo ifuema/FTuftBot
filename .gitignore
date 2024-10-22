@@ -1,1 +1,3 @@
 bot_config.py
+modules/test*.py
+images/*
