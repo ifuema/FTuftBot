@@ -24,8 +24,8 @@ app = Ariadne(
         # 他们默认为 "http://localhost:8080"
         # 如果你 mirai-api-http 的地址与端口也是 localhost:8080
         # 就可以删掉这两行，否则需要修改为 mirai-api-http 的地址与端口
-        # HttpClientConfig(host="http://11.45.1.4:19810"),
-        # WebsocketClientConfig(host="http://11.45.1.4:19810"),
+        HttpClientConfig(host="http://localhost:8080"),
+        WebsocketClientConfig(host="http://localhost:8080"),
     ),
 )
 

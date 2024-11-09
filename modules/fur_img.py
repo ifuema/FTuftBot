@@ -1,7 +1,6 @@
-import asyncio
+import os
 import random
 
-from graia.amnesia.builtins import aiohttp
 from graia.ariadne.app import Ariadne
 from graia.ariadne.event.message import GroupMessage
 from graia.ariadne.message.chain import MessageChain
@@ -11,64 +10,39 @@ from graia.ariadne.model import Group
 from graia.saya import Channel
 from graia.saya.builtins.broadcast.schema import ListenerSchema
 
+import bot_config
+
 channel = Channel.current()
-cdn_fursuit_img_list_url = f'https://api.github.com/repos/Hibanaw/CDN/contents/image/fursuit'
-cdn_furry_img_list_url = f'https://api.github.com/repos/Hibanaw/CDN/contents/image/kemono'
-cdn_fursuit_img_list = []
-cdn_furry_img_list = []
 
 
-async def get_cdn_fursuit_img_list():
-    global cdn_fursuit_img_list
-    async with aiohttp.ClientSession() as session:
-        async with session.get(cdn_fursuit_img_list_url) as response:
-            if response.status == 200:
-                files = await response.json()
-                cdn_fursuit_img_list = [file['name'] for file in files]
-            else:
-                print('get_cdn_fursuit_img_list请求失败，状态码:', response.status)
+def get_img_list(img_url):
+    img_list = []
+    for root, dirs, files in os.walk(img_url):
+        for file in files:
+            file_path = os.path.join(root, file)
+            img_list.append(file_path)  # 将文件名添加到列表中
+    return img_list
 
-async def get_cdn_furry_img_list():
-    global cdn_furry_img_list
-    async with aiohttp.ClientSession() as session:
-        async with session.get(cdn_furry_img_list_url) as response:
-            if response.status == 200:
-                files = await response.json()
-                cdn_furry_img_list = [file['name'] for file in files]
-            else:
-                print('get_cdn_furry_img_list请求失败，状态码:', response.status)
 
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
 async def setu(app: Ariadne, group: Group, message: MessageChain):
     if message.display == "来只兽兽":
-        use = random.choices(["uapi", "cdn"], weights=[1, 3])[0]
-        if not cdn_furry_img_list is [] and use == "cdn":
-            print("cdn")
-            cdn_furry_img_url = f"https://github.com/Hibanaw/CDN/blob/master/image/kemono/{random.choice(cdn_furry_img_list)}?raw=true"
-            async with aiohttp.ClientSession() as session:
-                async with session.get(cdn_furry_img_url) as response:
-                    await app.send_message(
-                        group,
-                        MessageChain(Image(data_bytes=await response.read())),
-                    )
-        else:
-            print("uapi")
-            uapi_furry_img_url = f"https://uapis.cn/api/imgapi/furry/img{random.choice(['', 'z', 's'])}4k.php"
-            await app.send_message(
-                group,
-                MessageChain(Image(url=uapi_furry_img_url)),
-            )
+        r_furry_img_url = random.choice(furry_img_list)
+        print(r_furry_img_url)
+        await app.send_message(
+            group,
+            MessageChain(Image(path=r_furry_img_url)),
+        )
     elif message.display == "来只毛毛":
-        if not cdn_fursuit_img_list is []:
-            cdn_fursuit_img_url = f"https://github.com/Hibanaw/CDN/blob/master/image/fursuit/{random.choice(cdn_fursuit_img_list)}?raw=true"
-            async with aiohttp.ClientSession() as session:
-                async with session.get(cdn_fursuit_img_url) as response:
-                    await app.send_message(
-                        group,
-                        MessageChain(Image(data_bytes=await response.read())),
-                    )
+        r_fursuit_img_url = random.choice(fursuit_img_list)
+        print(r_fursuit_img_url)
+        await app.send_message(
+            group,
+            MessageChain(Image(path=r_fursuit_img_url)),
+        )
 
-async def main():
-    await asyncio.gather(get_cdn_fursuit_img_list(), get_cdn_furry_img_list())
 
-asyncio.run(main())
+fursuit_img_list = get_img_list(bot_config.fursuit_img_url)
+furry_img_list = get_img_list(bot_config.furry_img_url)
+print("fursuit:", len(fursuit_img_list))
+print("furry:", len(furry_img_list))

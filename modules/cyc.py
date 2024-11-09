@@ -17,5 +17,5 @@ channel = Channel.current()
 @channel.use(ListenerSchema(listening_events=[NudgeEvent]))
 async def getup(app: Ariadne, event: NudgeEvent):
     if isinstance(event.subject, Group) and event.supplicant is not None and event.target == bot_config.QQ_ACCOUNT:
-        msg = ai.run(f"群友戳了戳你。本次输出请尽量简短，字数最好30字以内。")
+        msg = ai.run(f"群友戳了戳你。{ai.short}。")
         await app.send_group_message(event.group_id, MessageChain(msg))
