@@ -61,8 +61,8 @@ async def details(app: Ariadne, group: Group, message: Annotated[MessageChain, D
                 print(f"请求失败，状态码：{response.status}")
                 return
             res = await response.json()
-            data = res["data"]
-            info = res["info"][0]
+        data = res["data"]
+        info = res["info"][0]
         msg = ""
         msg += f"{data['title']}{'（' + info['name'] + '）' if info['name'] != '' else ''}\n"
         msg += f"{info['address']}\n"

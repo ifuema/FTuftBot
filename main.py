@@ -11,7 +11,6 @@ from graia.ariadne.event.message import GroupMessage
 from graia.ariadne.message.chain import MessageChain
 from graia.ariadne.model import Group
 from graia.saya import Saya
-
 import bot_config
 
 saya = create(Saya)
@@ -24,8 +23,8 @@ app = Ariadne(
         # 他们默认为 "http://localhost:8080"
         # 如果你 mirai-api-http 的地址与端口也是 localhost:8080
         # 就可以删掉这两行，否则需要修改为 mirai-api-http 的地址与端口
-        HttpClientConfig(host="http://localhost:8080"),
-        WebsocketClientConfig(host="http://localhost:8080"),
+        HttpClientConfig(host=bot_config.MIRAI_API_HTTP_HOST),
+        WebsocketClientConfig(host=bot_config.MIRAI_API_HTTP_HOST),
     ),
 )
 

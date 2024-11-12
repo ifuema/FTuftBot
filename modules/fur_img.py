@@ -42,7 +42,7 @@ async def setu(app: Ariadne, group: Group, message: MessageChain):
         )
 
 
-fursuit_img_list = get_img_list(bot_config.fursuit_img_url)
-furry_img_list = get_img_list(bot_config.furry_img_url)
+fursuit_img_list = get_img_list(bot_config.FURSUIT_IMG_URL)
+furry_img_list = get_img_list(bot_config.FURRY_IMG_URL)
 print("fursuit:", len(fursuit_img_list))
 print("furry:", len(furry_img_list))
