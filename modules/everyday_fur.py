@@ -17,7 +17,7 @@ shouyunji_pictures = "https://cloud.foxtail.cn/api/function/pictures?model=1&"
 async def everyday_fur(app: Ariadne):
     for group in bot_config.EVERYDAY_FUR_GROUPS:
         async with aiohttp.ClientSession() as session:
-            async with session.get(shouyunji_random) as response:
+            async with session.get(shouyunji_random, ssl=False) as response:
                 if response.status != 200:
                     print(f"请求失败，状态码：{response.status}")
                     return

@@ -15,4 +15,5 @@ def run(mes):
         "HARM_CATEGORY_HATE_SPEECH": "BLOCK_NONE",
         "HARM_CATEGORY_HARASSMENT": "BLOCK_NONE"
     })
+    print(starting + mes)
     return response.text

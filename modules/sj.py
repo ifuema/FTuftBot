@@ -24,7 +24,7 @@ details_url = "https://api.furryfusion.net/service/details?"
 async def countdown(app: Ariadne, group: Group, message: MessageChain):
     if message.display == "兽聚":
         async with aiohttp.ClientSession() as session:
-            async with session.get(countdown_url) as response:
+            async with session.get(countdown_url, ssl=False) as response:
                 if response.status != 200:
                     print(f"请求失败，状态码：{response.status}")
                     return
@@ -45,7 +45,7 @@ async def countdown(app: Ariadne, group: Group, message: MessageChain):
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
 async def details(app: Ariadne, group: Group, message: Annotated[MessageChain, DetectPrefix(["sj#"])]):
     async with aiohttp.ClientSession() as session:
-        async with session.get(countdown_url) as response:
+        async with session.get(countdown_url, ssl=False) as response:
             if response.status != 200:
                 print(f"请求失败，状态码：{response.status}")
                 return
@@ -56,7 +56,7 @@ async def details(app: Ariadne, group: Group, message: Annotated[MessageChain, D
                 MessageChain(ai.run(f"群友输入序号错误给出提醒，{ai.short}")),
             )
             return
-        async with session.get(details_url + "title=" + sj_list[int(message.display) - 1]["title"]) as response:
+        async with session.get(details_url + "title=" + sj_list[int(message.display) - 1]["title"], ssl=False) as response:
             if response.status != 200:
                 print(f"请求失败，状态码：{response.status}")
                 return
