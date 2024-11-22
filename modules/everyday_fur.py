@@ -22,7 +22,7 @@ async def everyday_fur(app: Ariadne):
                     print(f"请求失败，状态码：{response.status}")
                     return
                 p_id = (await response.json())['picture']['id']
-            async with session.get(shouyunji_pictures + "picture=" + p_id) as response:
+            async with session.get(shouyunji_pictures + "picture=" + p_id, ssl=False) as response:
                 if response.status != 200:
                     print(f"请求失败，状态码：{response.status}")
                     return
