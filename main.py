@@ -7,9 +7,6 @@ from graia.ariadne.connection.config import (
     WebsocketClientConfig,
     config,
 )
-from graia.ariadne.event.message import GroupMessage
-from graia.ariadne.message.chain import MessageChain
-from graia.ariadne.model import Group
 from graia.saya import Saya
 import bot_config
 

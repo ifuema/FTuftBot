@@ -2,7 +2,7 @@
 from graia.ariadne.app import Ariadne
 from graia.ariadne.event.mirai import NudgeEvent
 from graia.ariadne.message.chain import MessageChain
-from graia.ariadne.model import Friend, Group
+from graia.ariadne.model import Group
 from graia.saya import Channel
 from graia.saya.builtins.broadcast import ListenerSchema
 
