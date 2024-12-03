@@ -25,7 +25,7 @@ def get_img_list(img_url):
 
 
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
-async def setu(app: Ariadne, group: Group, message: MessageChain):
+async def img(app: Ariadne, group: Group, message: MessageChain):
     if message.display == "来只兽兽":
         r_furry_img_url = random.choice(furry_img_list)
         print(r_furry_img_url)

@@ -50,7 +50,7 @@ actions = [
 
 
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
-async def setu(app: Ariadne, group: Group, message: MessageChain, member: Member):
+async def mmxm(app: Ariadne, group: Group, message: MessageChain, member: Member):
     if message.display == "摸摸小猫":
         mes = ai.run(f"主人:\"{member.name}\"{random.choice(actions)}，请富有文采地表达你的愉悦，{ai.short}，请提及与你互动的主人的名字以及生动描述被互动的部位的状态，输出中坚决不可以出现\"谢谢\"、\"软软的\"、\"舒服\"、\"妙人\"、\"懂猫\"、\"好人\"等词语。")
         await app.send_message(
