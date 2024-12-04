@@ -21,4 +21,4 @@ async def backtracking(app: Ariadne, sender: Friend | Member, message: Annotated
     mes = message.display.split()
     if int(mes[1]) < len(RECALL_GROUPS):
         mes[1] = RECALL_GROUPS[int(mes[1])]
-    await globals()[mes[0]](app, await app.get_group(int(mes[1])), MessageChain(mes[2]), member = app.get_member(sender.id))
+    await globals()[mes[0]](app, await app.get_group(int(mes[1])), MessageChain(mes[2]))

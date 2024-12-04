@@ -16,6 +16,6 @@ channel = Channel.current()
 # @channel.use(ListenerSchema(listening_events=[GroupMessage]))
 @channel.use(ListenerSchema(listening_events=[NudgeEvent]))
 async def cyc(app: Ariadne, event: NudgeEvent):
-    if isinstance(event.subject, Group) and event.supplicant is not None and event.target == bot_config.QQ_ACCOUNT:
+    if isinstance(event.subject, Group) and event.supplicant and event.target == bot_config.QQ_ACCOUNT:
         msg = ai.run(f"群友戳了戳你。{ai.short}。")
         await app.send_group_message(event.group_id, MessageChain(msg))
