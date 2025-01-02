@@ -55,7 +55,7 @@ async def fetch_page(page_id, session):
         soup = BeautifulSoup(text, 'html.parser')
 
         # 创建本地文件夹用于保存图片
-        page_folder = f'page/fursuit_page_{page_id}'
+        page_folder = f'images/page/fursuit_page_{page_id}'
         if not os.path.exists(page_folder):
             os.makedirs(page_folder)
 
