@@ -13,14 +13,16 @@ from graia.saya.builtins.broadcast.schema import ListenerSchema
 import bot_config
 
 channel = Channel.current()
+valid_extensions = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webp"}
 
 
 def get_img_list(img_url):
     img_list = []
     for root, dirs, files in os.walk(img_url):
         for file in files:
-            file_path = os.path.join(root, file)
-            img_list.append(file_path)  # 将文件名添加到列表中
+            if os.path.splitext(file)[1].lower() in valid_extensions:  # 检查扩展名是否有效
+                file_path = os.path.join(root, file)
+                img_list.append(file_path)  # 将图片文件路径添加到列表中
     return img_list
 
 
