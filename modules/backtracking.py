@@ -10,6 +10,7 @@ from typing_extensions import Annotated
 
 from bot_config import ADMIN_QQ_ACCOUNT, RECALL_GROUPS
 from modules.fur_img import img
+from modules.test import details
 
 channel = Channel.current()
 
